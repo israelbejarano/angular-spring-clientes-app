@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
+import { ClientesComponent } from './clientes/clientes.component';
 
 
 
@@ -10,7 +11,8 @@ import { DirectivaComponent } from './directiva/directiva.component';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    DirectivaComponent
+    DirectivaComponent,
+    ClientesComponent
   ],
   imports: [
     CommonModule
@@ -18,7 +20,8 @@ import { DirectivaComponent } from './directiva/directiva.component';
   exports: [
     HeaderComponent,
     FooterComponent,
-    DirectivaComponent
+    DirectivaComponent,
+    ClientesComponent
   ]
 })
 export class ComponentsModule { }
