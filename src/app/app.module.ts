@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule} from '@angular/common/http';
 
 // Rutas
 import { APP_ROUTES } from './app.routes';
@@ -15,6 +16,7 @@ import { ComponentsModule } from './components/components.module';
   imports: [
     BrowserModule,
     ComponentsModule,
+    HttpClientModule,
     APP_ROUTES
   ],
   providers: [],
