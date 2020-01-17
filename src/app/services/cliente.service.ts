@@ -24,4 +24,8 @@ export class ClienteService {
   public create(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(`${this.baseUrl}/clientes`, cliente, {headers: this.httpHeaders});
   }
+
+  public update(cliente: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(`${this.baseUrl}/clientes/${cliente.id}`, cliente, {headers: this.httpHeaders});
+  }
 }
