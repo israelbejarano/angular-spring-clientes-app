@@ -24,7 +24,8 @@ export class FormComponent implements OnInit {
     this.clienteService.create(this.cliente).subscribe((clienteResp: Cliente) => {
       Swal.fire({
         icon: 'success',
-        title: `Cliente ${clienteResp.nombre} ${clienteResp.apellido} creado con éxito`,
+        title: 'Nuevo cliente',
+        text: `Cliente ${clienteResp.nombre} ${clienteResp.apellido} creado con éxito`,
         showConfirmButton: false,
         timer: 1500
       });
