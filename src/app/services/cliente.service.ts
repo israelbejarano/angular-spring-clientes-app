@@ -17,6 +17,10 @@ export class ClienteService {
     return this.http.get<Cliente[]>( `${this.baseUrl}/clientes`);
   }
 
+  public getCliente(id: number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseUrl}/clientes/${id}`);
+  }
+
   public create(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(`${this.baseUrl}/clientes`, cliente, {headers: this.httpHeaders});
   }
