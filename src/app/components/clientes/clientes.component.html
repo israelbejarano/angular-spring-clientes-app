@@ -14,6 +14,7 @@
                     <th>email</th>
                     <th>fecha</th>
                     <th>editar</th>
+                    <th>eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,9 @@
                     <td>{{cliente.createAt}}</td>
                     <td>
                         <button type="button" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary">editar</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" (click)="delete(cliente)">eliminar</button>
                     </td>
                 </tr>
             </tbody>
