@@ -31,13 +31,26 @@ export class FormComponent implements OnInit {
     });
   }
 
-  public create(): void {
+  public create() {
     // console.log(this.cliente);
     this.clienteService.create(this.cliente).subscribe((clienteResp: Cliente) => {
       Swal.fire({
         icon: 'success',
         title: 'Nuevo cliente',
         text: `Cliente ${clienteResp.nombre} ${clienteResp.apellido} creado con éxito`,
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.router.navigate(['/clientes']);
+    });
+  }
+
+  public update() {
+    this.clienteService.update(this.cliente).subscribe((clienteActualizado: Cliente) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Cliente actualizado',
+        text: `Cliente ${clienteActualizado.nombre} ${clienteActualizado.apellido} actualizado con éxito`,
         showConfirmButton: false,
         timer: 1500
       });
