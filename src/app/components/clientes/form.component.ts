@@ -7,7 +7,7 @@ import { Cliente } from '../../interfaces/cliente';
 })
 export class FormComponent implements OnInit {
 
-  cliente: Cliente;
+  cliente: Cliente = new Cliente();
   titulo = 'Crear Cliente';
 
   constructor() { }
