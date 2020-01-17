@@ -27,7 +27,8 @@ import { FormComponent } from './clientes/form.component';
     HeaderComponent,
     FooterComponent,
     DirectivaComponent,
-    ClientesComponent
+    ClientesComponent,
+    FormComponent
   ]
 })
 export class ComponentsModule { }
