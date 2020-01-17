@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from '../../interfaces/cliente';
-import { ClienteService } from '../../services/cliente.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ClienteService } from '../../services/cliente.service';
+import { Cliente, ClienteResponse } from '../../interfaces/api';
 
 import Swal from 'sweetalert2';
 
@@ -24,8 +24,9 @@ export class FormComponent implements OnInit {
     this.activatedroute.params.subscribe(params => {
       const id = params['id'.toString()];
       if (id) {
-        this.clienteService.getCliente(id).subscribe((cliente: Cliente) => {
-          this.cliente = cliente;
+        this.clienteService.getCliente(id).subscribe((clienteResp: Cliente) => {
+          console.log(clienteResp);
+          this.cliente = clienteResp;
         });
       }
     });
@@ -33,11 +34,11 @@ export class FormComponent implements OnInit {
 
   public create() {
     // console.log(this.cliente);
-    this.clienteService.create(this.cliente).subscribe((clienteResp: Cliente) => {
+    this.clienteService.create(this.cliente).subscribe((clienteResp: ClienteResponse) => {
       Swal.fire({
         icon: 'success',
         title: 'Nuevo cliente',
-        text: `Cliente ${clienteResp.nombre} ${clienteResp.apellido} creado con éxito`,
+        text: `Cliente ${clienteResp.cliente.nombre} ${clienteResp.cliente.apellido} creado con éxito`,
         showConfirmButton: false,
         timer: 1500
       });
@@ -46,11 +47,11 @@ export class FormComponent implements OnInit {
   }
 
   public update() {
-    this.clienteService.update(this.cliente).subscribe((clienteActualizado: Cliente) => {
+    this.clienteService.update(this.cliente).subscribe((clienteActualizado: ClienteResponse) => {
       Swal.fire({
         icon: 'success',
         title: 'Cliente actualizado',
-        text: `Cliente ${clienteActualizado.nombre} ${clienteActualizado.apellido} actualizado con éxito`,
+        text: `Cliente ${clienteActualizado.cliente.nombre} ${clienteActualizado.cliente.apellido} actualizado con éxito`,
         showConfirmButton: false,
         timer: 1500
       });

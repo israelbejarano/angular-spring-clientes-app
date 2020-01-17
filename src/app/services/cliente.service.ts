@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Cliente } from '../interfaces/cliente';
+import { Cliente, ClienteResponse } from '../interfaces/api';
 
 import Swal from 'sweetalert2';
 
@@ -32,8 +32,8 @@ export class ClienteService {
     );
   }
 
-  public create(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(`${this.baseUrl}/clientes`, cliente, {headers: this.httpHeaders}).pipe(
+  public create(cliente: Cliente): Observable<ClienteResponse> {
+    return this.http.post<ClienteResponse>(`${this.baseUrl}/clientes`, cliente, {headers: this.httpHeaders}).pipe(
       catchError(e => {
         console.log(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
@@ -42,8 +42,8 @@ export class ClienteService {
     );
   }
 
-  public update(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.baseUrl}/clientes/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
+  public update(cliente: Cliente): Observable<ClienteResponse> {
+    return this.http.put<ClienteResponse>(`${this.baseUrl}/clientes/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
       catchError(e => {
         console.log(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
@@ -52,8 +52,8 @@ export class ClienteService {
     );
   }
 
-  public delete(id: number): Observable<Cliente> {
-    return this.http.delete<Cliente>(`${this.baseUrl}/clientes/${id}`, {headers: this.httpHeaders}).pipe(
+  public delete(id: number): Observable<ClienteResponse> {
+    return this.http.delete<ClienteResponse>(`${this.baseUrl}/clientes/${id}`, {headers: this.httpHeaders}).pipe(
       catchError(e => {
         console.log(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');

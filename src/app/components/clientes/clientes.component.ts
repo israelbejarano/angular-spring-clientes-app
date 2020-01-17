@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from '../../interfaces/cliente';
+import { Cliente, ClienteResponse } from '../../interfaces/api';
 import { ClienteService } from '../../services/cliente.service';
 
 import Swal from 'sweetalert2';
@@ -33,11 +33,11 @@ export class ClientesComponent implements OnInit {
       cancelButtonText: '¡No, cancelar!'
     }).then((result) => {
       if (result.value) {
-        this.clienteService.delete(cliente.id).subscribe(response => {
+        this.clienteService.delete(cliente.id).subscribe((clienteResp: ClienteResponse) => {
           this.clientes = this.clientes.filter(cli => cli !== cliente);
           Swal.fire(
             '¡Eliminado!',
-            '¡El cliente ha sido eliminado con éxito!',
+            clienteResp.mensaje,
             'success'
           );
         });
