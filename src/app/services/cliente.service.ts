@@ -35,6 +35,10 @@ export class ClienteService {
   public create(cliente: Cliente): Observable<ClienteResponse> {
     return this.http.post<ClienteResponse>(`${this.baseUrl}/clientes`, cliente, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+        if (e.status === 400) {
+          return throwError(e);
+        }
+
         console.log(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
@@ -45,6 +49,10 @@ export class ClienteService {
   public update(cliente: Cliente): Observable<ClienteResponse> {
     return this.http.put<ClienteResponse>(`${this.baseUrl}/clientes/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+        if (e.status === 400) {
+          return throwError(e);
+        }
+
         console.log(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);

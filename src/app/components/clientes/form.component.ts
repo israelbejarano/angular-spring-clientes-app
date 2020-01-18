@@ -13,6 +13,7 @@ export class FormComponent implements OnInit {
 
   cliente: Cliente = new Cliente();
   titulo = 'Crear Cliente';
+  errores: string[];
 
   constructor(private clienteService: ClienteService, private router: Router, private activatedroute: ActivatedRoute) { }
 
@@ -43,6 +44,10 @@ export class FormComponent implements OnInit {
         timer: 1500
       });
       this.router.navigate(['/clientes']);
+    }, err => {
+      this.errores = err.error.errors;
+      console.error(err.status);
+      console.error(err.error.errors);
     });
   }
 
@@ -56,6 +61,10 @@ export class FormComponent implements OnInit {
         timer: 1500
       });
       this.router.navigate(['/clientes']);
+    }, err => {
+      this.errores = err.error.errors;
+      console.error(err.status);
+      console.error(err.error.errors);
     });
   }
 
