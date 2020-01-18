@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Cliente, ClienteResponse } from '../interfaces/api';
 
 import Swal from 'sweetalert2';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,15 @@ export class ClienteService {
   constructor(private http: HttpClient, private router: Router) { }
 
   public getClientes(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>( `${this.baseUrl}/clientes`);
+    return this.http.get( `${this.baseUrl}/clientes`).pipe(
+      map((response: Cliente[]) => {
+        const clientes = response;
+        return clientes.map(cliente => {
+          cliente.createAt = formatDate(cliente.createAt, 'dd-MM-yyyy', 'en-US');
+          return cliente;
+        });
+      })
+    );
   }
 
   public getCliente(id: number): Observable<Cliente> {
