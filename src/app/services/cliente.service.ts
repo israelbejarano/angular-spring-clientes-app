@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Cliente, ClienteResponse } from '../interfaces/api';
+import { Cliente, ClienteResponse, ClientePaginadoResponse } from '../interfaces/api';
 
 import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common';
@@ -22,6 +22,18 @@ export class ClienteService {
     return this.http.get( `${this.baseUrl}/clientes`).pipe(
       map((response: Cliente[]) => {
         const clientes = response;
+        return clientes.map(cliente => {
+          cliente.createAt = formatDate(cliente.createAt, 'dd-MM-yyyy', 'en-US');
+          return cliente;
+        });
+      })
+    );
+  }
+
+  public getClientesPaginados(page: number): Observable<Cliente[]> {
+    return this.http.get( `${this.baseUrl}/clientes/page/${page}`).pipe(
+      map((response: ClientePaginadoResponse) => {
+        const clientes = response.content;
         return clientes.map(cliente => {
           cliente.createAt = formatDate(cliente.createAt, 'dd-MM-yyyy', 'en-US');
           return cliente;
