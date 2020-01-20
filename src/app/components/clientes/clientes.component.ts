@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Cliente, ClienteResponse } from '../../interfaces/api';
 import { ClienteService } from '../../services/cliente.service';
 
@@ -13,14 +14,17 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    /* this.clienteService.getClientes().subscribe((clientesResp: Cliente[]) => {
-      this.clientes = clientesResp;
-    }); */
-    this.clienteService.getClientesPaginados(1).subscribe((clientesResp: Cliente[]) => {
-      this.clientes = clientesResp;
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page: number = +params.get('page');
+      if (!page) {
+        page = 0;
+      }
+      this.clienteService.getClientesPaginados(page).subscribe((clientesResp: Cliente[]) => {
+        this.clientes = clientesResp;
+      });
     });
   }
 
