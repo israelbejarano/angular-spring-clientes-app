@@ -26,6 +26,7 @@ export class ClientesComponent implements OnInit {
       }
       this.clienteService.getClientesPaginados(page).subscribe((clientesResp: ClientePaginadoResponse) => {
         this.clientes = clientesResp.content;
+        this.paginador = clientesResp;
       });
     });
   }
