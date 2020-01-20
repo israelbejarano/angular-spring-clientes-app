@@ -7,6 +7,7 @@ import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { FormComponent } from './clientes/form.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 
 
@@ -16,7 +17,8 @@ import { FormComponent } from './clientes/form.component';
     FooterComponent,
     DirectivaComponent,
     ClientesComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { FormComponent } from './clientes/form.component';
     FooterComponent,
     DirectivaComponent,
     ClientesComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
   ]
 })
 export class ComponentsModule { }
