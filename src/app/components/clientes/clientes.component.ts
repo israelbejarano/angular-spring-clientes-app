@@ -4,7 +4,6 @@ import { Cliente, ClienteResponse, ClientePaginadoResponse } from '../../interfa
 import { ClienteService } from '../../services/cliente.service';
 
 import Swal from 'sweetalert2';
-import {  } from '../../interfaces/cliente.paginado.response';
 
 @Component({
   selector: 'app-clientes',
