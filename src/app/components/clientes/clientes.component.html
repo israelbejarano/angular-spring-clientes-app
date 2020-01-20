@@ -26,7 +26,7 @@
                     <td>{{cliente.nombre}}</td>
                     <td>{{cliente.apellido}}</td>
                     <td>{{cliente.email}}</td>
-                    <td>{{cliente.createAt}}</td>
+                    <td>{{cliente.createAt | date:'dd-MM-yyyy'}}</td>
                     <td>
                         <button type="button" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary">editar</button>
                     </td>
@@ -36,5 +36,6 @@
                 </tr>
             </tbody>
         </table>
+        <app-paginator></app-paginator>
     </div>
 </div>

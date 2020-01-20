@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Cliente, ClienteResponse } from '../../interfaces/api';
+import { Cliente, ClienteResponse, ClientePaginadoResponse } from '../../interfaces/api';
 import { ClienteService } from '../../services/cliente.service';
 
 import Swal from 'sweetalert2';
+import {  } from '../../interfaces/cliente.paginado.response';
 
 @Component({
   selector: 'app-clientes',
@@ -13,6 +14,7 @@ import Swal from 'sweetalert2';
 export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
+  paginador;
 
   constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) { }
 
@@ -22,8 +24,8 @@ export class ClientesComponent implements OnInit {
       if (!page) {
         page = 0;
       }
-      this.clienteService.getClientesPaginados(page).subscribe((clientesResp: Cliente[]) => {
-        this.clientes = clientesResp;
+      this.clienteService.getClientesPaginados(page).subscribe((clientesResp: ClientePaginadoResponse) => {
+        this.clientes = clientesResp.content;
       });
     });
   }

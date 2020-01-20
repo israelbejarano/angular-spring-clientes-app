@@ -30,16 +30,8 @@ export class ClienteService {
     );
   }
 
-  public getClientesPaginados(page: number): Observable<Cliente[]> {
-    return this.http.get( `${this.baseUrl}/clientes/page/${page}`).pipe(
-      map((response: ClientePaginadoResponse) => {
-        const clientes = response.content;
-        return clientes.map(cliente => {
-          cliente.createAt = formatDate(cliente.createAt, 'dd-MM-yyyy', 'en-US');
-          return cliente;
-        });
-      })
-    );
+  public getClientesPaginados(page: number): Observable<ClientePaginadoResponse> {
+    return this.http.get<ClientePaginadoResponse>( `${this.baseUrl}/clientes/page/${page}`);
   }
 
   public getCliente(id: number): Observable<Cliente> {
