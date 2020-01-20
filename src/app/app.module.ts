@@ -7,7 +7,7 @@ import { APP_ROUTES } from './app.routes';
 
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -18,8 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     ComponentsModule,
     HttpClientModule,
-    APP_ROUTES,
-    BrowserAnimationsModule
+    APP_ROUTES
   ],
   providers: [],
   bootstrap: [AppComponent]

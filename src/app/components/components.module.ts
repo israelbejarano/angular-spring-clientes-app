@@ -2,12 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { FormComponent } from './clientes/form.component';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { DetalleComponent } from './clientes/detalle/detalle.component';
 
 
 
@@ -18,12 +21,16 @@ import { PaginatorComponent } from './paginator/paginator.component';
     DirectivaComponent,
     ClientesComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    DetalleComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     HeaderComponent,
@@ -31,7 +38,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     DirectivaComponent,
     ClientesComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    DetalleComponent
   ]
 })
 export class ComponentsModule { }
