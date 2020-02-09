@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Cliente, ClienteResponse, ClientePaginadoResponse } from '../../interfaces/api';
 import { ClienteService } from '../../services/cliente.service';
+import { ModalService } from '../../services/modal.service';
 
 import Swal from 'sweetalert2';
 
@@ -14,8 +15,9 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
   paginador;
+  clienteSeleccionado: Cliente;
 
-  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) { }
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -52,6 +54,11 @@ export class ClientesComponent implements OnInit {
         });
       }
     });
+  }
+
+  abrirModal(cliente: Cliente) {
+    this.clienteSeleccionado = cliente;
+    this.modalService.abrirModal();
   }
 
 }
