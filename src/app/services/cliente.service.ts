@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Cliente, ClienteResponse, ClientePaginadoResponse } from '../interfaces/api';
+import { Cliente, ClienteResponse, ClientePaginadoResponse, Region } from '../interfaces/api';
 
 import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common';
@@ -17,6 +17,12 @@ export class ClienteService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient, private router: Router) { }
+
+  // como solo tenenmos el get de regiones no creo otro servicio aparte aplico la misma
+  // logica que en backend
+  public getRegiones(): Observable<Region[]> {
+    return this.http.get<Region[]>(`${this.baseUrl}/clientes/regiones`);
+  }
 
   public getClientes(): Observable<Cliente[]> {
     return this.http.get( `${this.baseUrl}/clientes`).pipe(
