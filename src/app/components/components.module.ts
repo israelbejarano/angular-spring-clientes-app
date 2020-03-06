@@ -11,6 +11,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { FormComponent } from './clientes/form.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
+import { LoginComponent } from './usuarios/login.component';
 
 
 
@@ -22,7 +23,8 @@ import { DetalleComponent } from './clientes/detalle/detalle.component';
     ClientesComponent,
     FormComponent,
     PaginatorComponent,
-    DetalleComponent
+    DetalleComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { DetalleComponent } from './clientes/detalle/detalle.component';
     ClientesComponent,
     FormComponent,
     PaginatorComponent,
-    DetalleComponent
+    DetalleComponent,
+    LoginComponent
   ]
 })
 export class ComponentsModule { }
