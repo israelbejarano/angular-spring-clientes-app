@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
+import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Cliente, ClienteResponse, ClientePaginadoResponse, Region } from '../interfaces/api';
 
 import Swal from 'sweetalert2';
-import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
