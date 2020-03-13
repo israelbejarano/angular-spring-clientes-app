@@ -18,7 +18,7 @@ export class AuthService {
   public get usuario(): Usuario {
     if (this._usuario != null) {
       return this._usuario;
-    } else if (this._usuario == null && sessionStorage.getItem('usuario') != null){
+    } else if (this._usuario == null && sessionStorage.getItem('usuario') != null) {
       this._usuario = JSON.parse(sessionStorage.getItem('usuario')) as Usuario;
       return this._usuario;
     }
@@ -28,7 +28,7 @@ export class AuthService {
   public get token(): string {
     if (this._token != null) {
       return this._token;
-    } else if (this._token == null && sessionStorage.getItem('token') != null){
+    } else if (this._token == null && sessionStorage.getItem('token') != null) {
       this._token = sessionStorage.getItem('token');
       return this._token;
     }
@@ -64,7 +64,7 @@ export class AuthService {
   }
 
   guardarToken(accessToken: string) {
-    this._token =accessToken;
+    this._token = accessToken;
     sessionStorage.setItem('token', this._token);
   }
 
