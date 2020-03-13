@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../../interfaces/api';
+import { Usuario, LoginResponse } from '../../interfaces/api';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 import Swal from 'sweetalert2';
 
@@ -13,7 +15,7 @@ export class LoginComponent implements OnInit {
   titulo = 'Por favor Sign in';
   usuario: Usuario;
 
-  constructor() {
+  constructor( private authService: AuthService, private router: Router) {
     this.usuario = new Usuario();
    }
 
@@ -25,6 +27,10 @@ export class LoginComponent implements OnInit {
     if (this.usuario.username == null || this.usuario.password == null) {
       Swal.fire('Error Login', 'Username o password vacías', 'error');
     }
+
+    this.authService.login(this.usuario).subscribe((resp: LoginResponse) => {
+      console.log(resp);
+    });
   }
 
 }
