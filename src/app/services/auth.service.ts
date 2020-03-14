@@ -78,12 +78,16 @@ export class AuthService {
   isAuthenticated(): boolean {
     const payload = this.obtenerDatosToken(this.token);
     if (payload != null && payload.user_name && payload.user_name.length > 0) {
-      console.log('tiene datos');
       return true;
     } else {
-      console.log('no tiene datos');
       return false;
     }
 
+  }
+
+  logout() {
+    this._token = null;
+    this._usuario = null;
+    sessionStorage.clear();
   }
 }
