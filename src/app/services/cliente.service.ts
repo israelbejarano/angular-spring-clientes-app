@@ -94,7 +94,8 @@ export class ClienteService {
   }
 
   public update(cliente: Cliente): Observable<ClienteResponse> {
-    return this.http.put<ClienteResponse>(`${this.baseUrl}/clientes/${cliente.id}`, cliente, {headers: this.agregarAuthorizationHeader()}).pipe(
+    return this.http.put<ClienteResponse>(`${this.baseUrl}/clientes/${cliente.id}`,
+                                cliente, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {
         if (this.isNoAutorizado(e)) {
           return throwError(e);
