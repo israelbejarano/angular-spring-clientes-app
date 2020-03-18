@@ -8,6 +8,7 @@ import { APP_ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 
@@ -21,7 +22,9 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     HttpClientModule,
     APP_ROUTES
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

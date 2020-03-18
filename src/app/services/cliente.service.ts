@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Cliente, ClienteResponse, ClientePaginadoResponse, Region } from '../interfaces/api';
-
-import Swal from 'sweetalert2';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,42 +13,12 @@ export class ClienteService {
 
   private baseUrl = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
-
-  /* private agregarAuthorizationHeader(): HttpHeaders {
-    const token = this.authService.token;
-    if (token != null) {
-      return this.httpHeaders.append('Authorization', 'Bearer ' + token);
-    }
-    return this.httpHeaders;
-  } */
-
-  private isNoAutorizado(e: any): boolean {
-    if (e.status === 401) {
-      if (this.authService.isAuthenticated()) {
-        this.authService.logout();
-      }
-      this.router.navigate(['/login']);
-      return true;
-    }
-
-    if (e.status === 403) {
-      Swal.fire('Acceso denegado', `${this.authService.usuario.username} no tienes acceso a este recurso!`, 'warning');
-      this.router.navigate(['/clientes']);
-      return true;
-    }
-    return false;
-  }
+  constructor(private http: HttpClient, private router: Router) { }
 
   // como solo tenenmos el get de regiones no creo otro servicio aparte aplico la misma
   // logica que en backend
   public getRegiones(): Observable<Region[]> {
-    return this.http.get<Region[]>(`${this.baseUrl}/clientes/regiones`).pipe(
-      catchError(e => {
-        this.isNoAutorizado(e);
-        return throwError(e);
-      })
-    );
+    return this.http.get<Region[]>(`${this.baseUrl}/clientes/regiones`);
   }
 
   public getClientes(): Observable<Cliente[]> {
@@ -73,12 +40,10 @@ export class ClienteService {
   public getCliente(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.baseUrl}/clientes/${id}`).pipe(
       catchError(e => {
-        if (this.isNoAutorizado(e)) {
-          return throwError(e);
+        if (e.status !== 401 && e.error.mensaje) {
+          this.router.navigate(['/clientes']);
+          console.log(e.error.mensaje);
         }
-        this.router.navigate(['/clientes']);
-        console.log(e.error.mensaje);
-        Swal.fire('Error al editar', e.error.mensaje, 'error');
         return throwError(e);
       })
     );
@@ -87,15 +52,12 @@ export class ClienteService {
   public create(cliente: Cliente): Observable<ClienteResponse> {
     return this.http.post<ClienteResponse>(`${this.baseUrl}/clientes`, cliente).pipe(
       catchError(e => {
-        if (this.isNoAutorizado(e)) {
-          return throwError(e);
-        }
         if (e.status === 400) {
           return throwError(e);
         }
-
-        console.log(e.error.mensaje);
-        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        if (e.error.mensaje) {
+          console.log(e.error.mensaje);
+        }
         return throwError(e);
       })
     );
@@ -105,15 +67,13 @@ export class ClienteService {
     return this.http.put<ClienteResponse>(`${this.baseUrl}/clientes/${cliente.id}`,
                                 cliente).pipe(
       catchError(e => {
-        if (this.isNoAutorizado(e)) {
-          return throwError(e);
-        }
         if (e.status === 400) {
           return throwError(e);
         }
 
-        console.log(e.error.mensaje);
-        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        if (e.error.mensaje) {
+          console.log(e.error.mensaje);
+        }
         return throwError(e);
       })
     );
@@ -122,11 +82,9 @@ export class ClienteService {
   public delete(id: number): Observable<ClienteResponse> {
     return this.http.delete<ClienteResponse>(`${this.baseUrl}/clientes/${id}`).pipe(
       catchError(e => {
-        if (this.isNoAutorizado(e)) {
-          return throwError(e);
+        if (e.error.mensaje) {
+          console.log(e.error.mensaje);
         }
-        console.log(e.error.mensaje);
-        Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
     );
@@ -140,11 +98,6 @@ export class ClienteService {
     const req = new HttpRequest('POST', `${this.baseUrl}/clientes/upload`, formData, {
       reportProgress: true
     });
-    return this.http.request(req).pipe(
-      catchError(e => {
-        this.isNoAutorizado(e);
-        return throwError(e);
-      })
-    );
+    return this.http.request(req);
   }
 }
