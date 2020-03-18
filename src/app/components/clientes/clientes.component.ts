@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Cliente, ClienteResponse, ClientePaginadoResponse } from '../../interfaces/api';
 import { ClienteService } from '../../services/cliente.service';
 import { ModalService } from '../../services/modal.service';
+import { AuthService } from '../../services/auth.service';
+import { Cliente, ClienteResponse, ClientePaginadoResponse } from '../../interfaces/api';
 
 import Swal from 'sweetalert2';
 
@@ -16,8 +17,11 @@ export class ClientesComponent implements OnInit {
   clientes: Cliente[];
   paginador;
   clienteSeleccionado: Cliente;
+  esAdmin: boolean;
+  esUsuario: boolean;
 
-  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute,
+              private modalService: ModalService, private authService: AuthService) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -38,6 +42,8 @@ export class ClientesComponent implements OnInit {
         return clienteOriginal;
       });
     });
+    this.esAdmin = this.authService.hasRole('ROLE_ADMIN');
+    this.esUsuario = this.authService.hasRole('ROLE_USER');
   }
 
   public delete(cliente: Cliente) {

@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
 import { ClienteService } from '../../../services/cliente.service';
 import { ModalService } from '../../../services/modal.service';
+import { AuthService } from '../../../services/auth.service';
 import { Cliente } from '../../../interfaces/api';
 
 import Swal from 'sweetalert2';
-import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-detalle',
@@ -17,10 +18,13 @@ export class DetalleComponent implements OnInit {
   @Input() cliente: Cliente;
   fotoSeleccionada: File;
   progreso = 0;
+  esAdmin: boolean;
 
-  constructor(private clienteService: ClienteService, public modalService: ModalService) { }
+  constructor(private clienteService: ClienteService, public modalService: ModalService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+    this.esAdmin = this.authService.hasRole('ROLE_ADMIN');
   }
 
   seleccionarFoto(event) {
