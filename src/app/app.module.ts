@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 // Rutas
 import { APP_ROUTES } from './app.routes';
 
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 
@@ -20,7 +21,7 @@ import { ComponentsModule } from './components/components.module';
     HttpClientModule,
     APP_ROUTES
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
