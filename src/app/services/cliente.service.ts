@@ -4,7 +4,8 @@ import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Cliente, ClienteResponse, ClientePaginadoResponse, Region } from '../interfaces/api';
+import { ClienteResponse, ClientePaginadoResponse } from '../interfaces/api';
+import { Cliente, Region } from '../models/api';
 
 @Injectable({
   providedIn: 'root'

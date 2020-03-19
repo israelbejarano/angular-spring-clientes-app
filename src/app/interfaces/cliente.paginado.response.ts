@@ -1,4 +1,4 @@
-import { Cliente } from './cliente';
+import { Cliente } from '../models/api';
 
 export interface ClientePaginadoResponse {
     content: Cliente[];

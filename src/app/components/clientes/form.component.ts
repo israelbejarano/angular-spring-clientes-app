@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClienteService } from '../../services/cliente.service';
-import { Cliente, ClienteResponse, Region } from '../../interfaces/api';
+import { ClienteResponse } from '../../interfaces/api';
+import { Cliente, Region } from '../../models/api';
 
 import Swal from 'sweetalert2';
 

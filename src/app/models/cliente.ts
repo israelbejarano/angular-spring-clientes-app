@@ -1,4 +1,4 @@
-import { Region } from './region';
+import { Region, Factura } from './api';
 
 export class Cliente {
     id: number;
@@ -8,4 +8,5 @@ export class Cliente {
     createAt: string;
     foto: string;
     region: Region;
+    facturas: Factura[] = [];
 }

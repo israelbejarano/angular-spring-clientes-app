@@ -3,7 +3,7 @@ import { HttpEventType } from '@angular/common/http';
 import { ClienteService } from '../../../services/cliente.service';
 import { ModalService } from '../../../services/modal.service';
 import { AuthService } from '../../../services/auth.service';
-import { Cliente } from '../../../interfaces/api';
+import { Cliente } from '../../../models/api';
 
 import Swal from 'sweetalert2';
 
