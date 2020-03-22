@@ -13,6 +13,7 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { LoginComponent } from './usuarios/login.component';
 import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
+import { FacturasComponent } from './facturas/facturas.component';
 
 
 
@@ -26,7 +27,8 @@ import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
     PaginatorComponent,
     DetalleComponent,
     LoginComponent,
-    DetalleFacturaComponent
+    DetalleFacturaComponent,
+    FacturasComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
     PaginatorComponent,
     DetalleComponent,
     LoginComponent,
-    DetalleFacturaComponent
+    DetalleFacturaComponent,
+    FacturasComponent
   ]
 })
 export class ComponentsModule { }
