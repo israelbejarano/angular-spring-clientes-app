@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { Factura, Cliente } from '../../models/api';
 import { ClienteService } from '../../services/cliente.service';
 
@@ -12,6 +15,9 @@ export class FacturasComponent implements OnInit {
 
   titulo = 'Nueva Factura';
   factura: Factura = new Factura();
+  autocompleteControl = new FormControl();
+  productos: string[] = ['Mesa', 'Tablet', 'Sony', 'Samsung', 'Tv LG', 'Bicicleta'];
+  productosFiltrados: Observable<string[]>;
 
   constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) { }
 
@@ -22,6 +28,17 @@ export class FacturasComponent implements OnInit {
         this.factura.cliente = cliente;
       });
     });
+    this.productosFiltrados = this.autocompleteControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.productos.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 }
