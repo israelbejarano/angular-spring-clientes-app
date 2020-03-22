@@ -17,6 +17,7 @@
                     <th>apellido</th>
                     <th>email</th>
                     <th>fecha</th>
+                    <th>crear factura</th>
                     <th *ngIf="esAdmin">editar</th>
                     <th *ngIf="esAdmin">eliminar</th>
                 </tr>
@@ -31,6 +32,7 @@
                     <td>{{cliente.apellido}}</td>
                     <td>{{cliente.email}}</td>
                     <td>{{cliente.createAt | date:'dd-MM-yyyy'}}</td>
+                    <td><button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">crear factura</button></td>
                     <td *ngIf="esAdmin">
                         <button type="button" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary btn-sm">editar</button>
                     </td>
