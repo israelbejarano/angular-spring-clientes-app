@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { Factura, Cliente } from '../../models/api';
+import { map, flatMap } from 'rxjs/operators';
+import { Factura, Cliente, Producto } from '../../models/api';
 import { ClienteService } from '../../services/cliente.service';
+import { FacturaService } from '../../services/factura.service';
 
 @Component({
   selector: 'app-facturas',
@@ -16,10 +17,10 @@ export class FacturasComponent implements OnInit {
   titulo = 'Nueva Factura';
   factura: Factura = new Factura();
   autocompleteControl = new FormControl();
-  productos: string[] = ['Mesa', 'Tablet', 'Sony', 'Samsung', 'Tv LG', 'Bicicleta'];
-  productosFiltrados: Observable<string[]>;
+  productosFiltrados: Observable<Producto[]>;
 
-  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) { }
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute,
+              private facturaService: FacturaService) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -30,15 +31,19 @@ export class FacturasComponent implements OnInit {
     });
     this.productosFiltrados = this.autocompleteControl.valueChanges
     .pipe(
-      startWith(''),
-      map(value => this._filter(value))
+      map(value => typeof value === 'string' ? value : value.nombre),
+      flatMap(value => value ? this._filter(value) : [])
     );
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string): Observable<Producto[]> {
     const filterValue = value.toLowerCase();
 
-    return this.productos.filter(option => option.toLowerCase().includes(filterValue));
+    return this.facturaService.filtrarProductos(filterValue);
+  }
+
+  mostrarNombre(producto?: Producto): string | undefined {
+    return producto ? producto.nombre : undefined;
   }
 
 }
