@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Factura } from '../models/api';
+import { Factura, Producto } from '../models/api';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +18,9 @@ export class FacturaService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.urlEndPoint}/${id}`);
+  }
+
+  filtrarProductos(term: string): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.urlEndPoint}/filtrar-productos/${term}`);
   }
 }
