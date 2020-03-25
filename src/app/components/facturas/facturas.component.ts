@@ -65,12 +65,20 @@ export class FacturasComponent implements OnInit {
 
   actualizarCantidad(id: number, event: any) {
     const cantidad = event.target.value as number;
+    // tiene que ser doble igual porque si no no funciona este if en el front
+    // tslint:disable-next-line: triple-equals
+    if (cantidad == 0) {
+      return this.eliminarItemFactura(id);
+    }
     this.factura.items = this.factura.items.map((item: ItemFactura) => {
       if (id === item.producto.id) {
         item.cantidad = cantidad;
       }
       return item;
     });
+  }
+  eliminarItemFactura(id: number) {
+    this.factura.items = this.factura.items.filter((item: ItemFactura) => id !== item.producto.id);
   }
 
   private existeItem(id: number): boolean {
@@ -79,7 +87,7 @@ export class FacturasComponent implements OnInit {
       if (id === item.producto.id) {
         existe = true;
       }
-    })
+    });
     return existe;
   }
 
