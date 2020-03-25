@@ -12,19 +12,19 @@
         <table class="table table-bordered table-striped" *ngIf="clientes?.length>0">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th *ngIf="esUsuario">#</th>
                     <th>nombre</th>
                     <th>apellido</th>
                     <th>email</th>
                     <th>fecha</th>
-                    <th>crear factura</th>
+                    <th *ngIf="esAdmin">crear factura</th>
                     <th *ngIf="esAdmin">editar</th>
                     <th *ngIf="esAdmin">eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let cliente of clientes">
-                    <td>
+                    <td *ngIf="esUsuario">
                         <img *ngIf="cliente?.foto" (click)="abrirModal(cliente)" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded" style="width: 64px; cursor: pointer;">
                         <img *ngIf="!cliente?.foto" (click)="abrirModal(cliente)" src="http://localhost:8080/images/not-user.png" alt="Sin foto" class="img-thumbnail rounded" style="width: 64px; cursor: pointer;">
                     </td>
@@ -32,7 +32,9 @@
                     <td>{{cliente.apellido}}</td>
                     <td>{{cliente.email}}</td>
                     <td>{{cliente.createAt | date:'dd-MM-yyyy'}}</td>
-                    <td><button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">crear factura</button></td>
+                    <td *ngIf="esAdmin">
+                        <button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">crear factura</button>
+                    </td>
                     <td *ngIf="esAdmin">
                         <button type="button" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary btn-sm">editar</button>
                     </td>

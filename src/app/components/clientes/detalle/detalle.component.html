@@ -38,7 +38,7 @@
                                 <img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded">
                             </div>
                         </div>
-                        <div class="row">
+                        <div *ngIf="esAdmin" class="row">
                             <button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">crear factura</button>
                         </div>
                         <div class="row">
@@ -52,7 +52,7 @@
                                     <th>fecha</th>
                                     <th>total</th>
                                     <th>detalle</th>
-                                    <th>eliminar</th>
+                                    <th *ngIf="esAdmin">eliminar</th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let factura of cliente.facturas">
@@ -61,7 +61,7 @@
                                         <td>{{factura.createAt}}</td>
                                         <td>{{factura.total}}</td>
                                         <td><button class="btn btn-primary btn-sm" type="button" [routerLink]="['/facturas', factura.id]">ver</button></td>
-                                        <td><button class="btn btn-danger btn-sm" type="button" (click)="delete(factura)">eliminar</button></td>
+                                        <td *ngIf="esAdmin"><button class="btn btn-danger btn-sm" type="button" (click)="delete(factura)">eliminar</button></td>
                                     </tr>
                                 </tbody>
                             </table>
