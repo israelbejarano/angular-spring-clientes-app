@@ -57,6 +57,7 @@ export class FormComponent implements OnInit {
   }
 
   public update() {
+    this.cliente.facturas = null; // solved bug recursion
     this.clienteService.update(this.cliente).subscribe((clienteActualizado: ClienteResponse) => {
       Swal.fire({
         icon: 'success',
